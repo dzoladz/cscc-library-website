@@ -1,0 +1,56 @@
+<style type="text/css">.form {display: none;}
+.form.show {display: block;}
+#easy_search {text-align: center; font-size: 24px;}
+#easy_search > i {margin: 5px;}
+#easy_search > i.fa-paw {color: #8b2348;}
+#select_form {text-align: center; margin-bottom: 8px;}
+#select_form > button {margin: 3px; background: transparent; border: 1px solid #ebebeb; border-radius: 4px; font-size: 14px;}
+#select_form > button:hover {background-color: #8b2348; color: white;}
+#select_form > button:focus {background-color: #8b2348; color: white;}
+#select_form > button.active {background-color: #8b2348; color: white;}
+
+.easy_search_btn {color: #fff; background-color: #8b2348; }
+</style>
+<script src="http://supportforms.epnet.com/eit/scripts/ebscohostsearch.js" type="text/javascript"></script>
+<div id="easy_search"><i class="fa fa-paw"></i>Easy Search<i class="fa fa-paw"></i></div>
+<!-- Buttons Display Selected Form -->
+
+<div id="select_form"><button class="button active">Articles</button><button class="button">Books</button><button class="button">eBooks</button><button class="button">Textbooks</button></div>
+<!-- Form Options -->
+
+<div id="display_form">
+<div class="form show">
+<form action="" method="post" onsubmit="return ebscoHostSearchGo(this);"><input id="ebscohostwindow" name="ebscohostwindow" type="hidden" value="1" /> <input id="ebscohosturl" name="ebscohosturl" type="hidden" value="http://cscc.ohionet.org/login?url=http://search.ebscohost.com/login.aspx?direct=true&amp;site=ehost-live&amp;scope=site&amp;type=1&amp;db=a9h&amp;mode=bool&amp;lang=en&amp;authtype=cookie,ip,user" /> <input id="ebscohostsearchsrc" name="ebscohostsearchsrc" type="hidden" value="url" /> <input id="ebscohostsearchmode" name="ebscohostsearchmode" type="hidden" value="+" /> <input id="ebscohostkeywords" name="ebscohostkeywords" type="hidden" value="" />
+<div class="input-group"><input class="form-control" id="ebscohostsearchtext" name="ebscohostsearchtext" placeholder="Browse Academic Search Complete for Articles" style="height: 34px;" type="text" /> <span class="input-group-btn" style="font-size: 14px;"><button class="btn btn-default easy_search_btn" type="submit">Go!</button> </span></div>
+<!-- /input-group --></form>
+</div>
+
+<div class="form">
+<form action="http://cslink.cscc.edu/search/a?" id="search" name="search" role="form"><select class="form-control" name="searchtype" style=" height: 34px; margin-bottom: 3px; width: 200px;"><option selected="selected" value="X">Keyword</option><option value="d">Subject</option><option value="t">Title</option><option value="a">Author</option><option value="c">Call Number</option><option value="i">ISBN/ISSN Number</option> </select>
+
+<div class="input-group"><input class="form-control" name="searcharg" placeholder="Search the CSCC Library Catalog For Books" style="height: 34px;" type="text" /> <input name="SORT" type="hidden" value="D" /> <span class="input-group-btn"><button class="btn btn-default easy_search_btn" style="font-size: 14px;" type="submit">Go!</button> </span></div>
+</form>
+</div>
+
+<div class="form">
+<form action="http://cslink.cscc.edu/search/X?&amp;SORT=D&amp;m=@" id="search" name="search">
+<div class="input-group"><input class="form-control" name="search" placeholder="Search the CSCC Library Catalog for eBooks" style="height: 34px;" type="text" /> <input name="SORT" type="hidden" value="D" /> <input name="m" type="hidden" value="@" /> <span class="input-group-btn" style="font-size: 14px;"><button class="btn btn-default easy_search_btn" type="submit">Go!</button> </span></div>
+</form>
+</div>
+
+<div class="form">
+<form action="http://cslink.cscc.edu/search/r?&amp;SORT=D&amp;m=@" id="search" name="search">
+<div class="input-group"><input class="form-control" name="search" placeholder="ENGL 1100" style="height: 34px;" type="text" /> <span class="input-group-btn" style="font-size: 14px;"><button class="btn btn-default easy_search_btn" type="submit">Go!</button> </span></div>
+</form>
+</div>
+</div>
+<!-- Form Toggle Script --><script>
+$('#select_form button').on('click', function () {
+    var eq = $(this).index();
+
+    $('#display_form .form').removeClass('show');
+    $('#select_form .button').removeClass('active');
+    $('#display_form .form').eq(eq).addClass('show');
+    $('#select_form .button').eq(eq).addClass('active');
+});
+</script>
