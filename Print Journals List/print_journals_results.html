@@ -1,0 +1,2558 @@
+<script language="javascript" type="text/javascript">// <![CDATA[
+// Custom Filter From Rick Strahl
+jQuery.expr[":"].containsNoCase = function(el, i, m) {
+	var search = m[3];
+	if (!search) return false;
+	return eval("/" + search + "/i").test($(el).text());
+};
+
+$(document).ready(function() {
+	// hide the cancel search image
+	$('#imgSearch').hide();
+       // hide subject and alpha columns
+       $('#tblSearch tr td.subject').hide();
+       $('#tblSearch tr td.alpha').hide();
+	// reset the search when the cancel image is clicked
+	$('#imgSearch').click(function() {
+		resetSearch();
+	});
+
+//TEXT SEARCHING
+	$('#textSearch').keyup(function() {
+		// only search when there are 3 or more characters in the textbox
+		if ($('#textSearch').val().length > 2) {
+		// hide all rows
+		$('#tblSearch tr').hide();
+		// show the header row
+		$('#tblSearch tr:first').show();
+                // hide subject and alpha columns
+                $('#tblSearch tr td.subject').hide();
+                $('#tblSearch tr td.alpha').hide();
+                // Set alphaSearch option value to all
+                $('#alphaSearch').val('All')
+                $('#subjectSearch').val('All')
+		// show the matching rows
+		$('#tblSearch tr td:containsNoCase(\'' + jQuery('#textSearch').val() + '\')').parent().show();
+		// show the cancel search image
+		$('#imgSearch').show();
+		}
+
+		else if ($('#textSearch').val().length == 0) {
+		// if the user removed all of the text, reset the search
+			resetSearch();
+		}
+
+  		// if there were no matching rows, tell the user
+		if ($('#tblSearch tr:visible').length == 1) {
+			// remove the norecords row if it already exists
+			$('.norecords').remove();
+			// add the norecords row
+			$('#tblSearch').append('<tr class="norecords"><td colspan="4" class="Normal">No records were found</td></tr>');
+		}
+	});
+
+
+// SUBJECT SEARCHING
+	$(":input#subjectSearch").change(function(){
+		// If "All" selected
+		if ($('#subjectSearch').val() == "All")  { 
+                        // hide subject and alpha columns
+                       $('#tblSearch tr td.subject').hide();
+                       $('#tblSearch tr td.alpha').hide();
+		 	// show all table rows
+			$('#tblSearch tr').show();
+		}
+
+		else if ($('#subjectSearch').val().length > 0) {
+		     // hide all rows
+		     $('#tblSearch tr').hide();
+		     // show the header row
+		     $('#tblSearch tr:first').show();
+                     // hide subject and alpha columns
+                     $('#tblSearch tr td.subject').hide();
+                     $('#tblSearch tr td.alpha').hide();
+                     // Set alphaSearch option value to all
+                     $('#alphaSearch').val('All')
+		     // show the matching rows
+                     $('#tblSearch tr td.subject:contains(\'' + jQuery('#subjectSearch').val() + '\')').parent().show();
+		}
+	});
+
+// ALPHA SEARCHING
+
+	$(":input#alphaSearch").change(function(){
+		// If "All" selected
+		if ($('#alphaSearch').val() == "All")  { 
+                       // hide subject and alpha columns
+                       $('#tblSearch tr td.subject').hide();
+                       $('#tblSearch tr td.alpha').hide();
+			// show all table rows
+			$('#tblSearch tr').show();
+		}
+
+		else if ($('#alphaSearch').val().length > 0) {
+		     // hide all rows
+		     $('#tblSearch tr').hide();
+		     // show the header row
+		     $('#tblSearch tr:first').show();	    
+                     // hide subject and alpha columns
+                     $('#tblSearch tr td.subject').hide();
+                     $('#tblSearch tr td.alpha').hide();
+                     // Set subjectSearch option value to all
+                     $('#subjectSearch').val('All')
+                    // show the matching rows
+		     $('#tblSearch tr td.alpha:containsNoCase(\'' + jQuery('#alphaSearch').val() + '\')').parent().show();
+		}
+	});
+}); //End (document).ready()
+
+
+//Reset Search Results
+function resetSearch() {
+	// clear the textbox
+	$('#textSearch').val('');
+	// show all table rows
+	$('#tblSearch tr').show();
+	// remove any no records rows
+	$('.norecords').remove();
+	// remove the cancel search image
+	$('#imgSearch').hide();
+	// make sure we re-focus on the textbox for usability
+	$('#textSearch').focus();
+	}
+// ]]>
+</script>
+
+<style type="text/css">table, th, tr, td {
+border: 1px solid #E3E2E2;
+border-collapse: collapse;
+}
+
+select#alphaSearch {
+background-color:#F0F0F0;
+margin-bottom: 10px;
+}
+
+select#subjectSearch {
+background-color:#F0F0F0;
+display: block;
+width: 100%;
+margin-bottom: 10px;
+}
+</style>
+
+<div id="periodicals_listing">
+<!-- Alpha Searching Menu Options-->
+List Journals Alphabetically by Title: 
+<select id="alphaSearch">
+<option value="All">All</option>
+<option value="A">A</option>
+<option value="B">B</option>
+<option value="C">C</option>
+<option value="D">D</option>
+<option value="E">E</option>
+<option value="F">F</option>
+<option value="G">G</option>
+<option value="H">H</option>
+<option value="I">I</option>
+<option value="J">J</option>
+<option value="K">K</option>
+<option value="L">L</option>
+<option value="M">M</option>
+<option value="N">N</option>
+<option value="O">O</option>
+<option value="P">P</option>
+<option value="Q">Q</option>
+<option value="R">R</option>
+<option value="S">S</option>
+<option value="T">T</option>
+<option value="U">U</option>
+<option value="V">V</option>
+<option value="W">W</option> 
+<!-- <option value="X">X</option> -->
+<option value="Y">Y</option> 
+<!-- <option value="Z">Z</option> --> 
+</select>
+<br />
+
+<!-- Subject Searching Menu Options--> 
+<b style="color:red;">Or</b>, List Journals by Subject, Academic Department or Academic Program: 
+<select id="subjectSearch"><option value="All">All</option>
+<option value="10">Accounting</option>
+<option value="11">Architecture</option>
+<option value="12">Automotive &amp; Applied Technologies</option><option value="13">Aviation Maintenance Technology</option>
+<option value="14">Biological Sciences</option><option value="15">Business Management</option>
+<option value="16">Civil Engineering Technology</option>
+<option value="17">Communication</option><option value="18">Computer Information Technology</option>
+<option value="19">Construction Management</option><option value="20">Criminal Justice</option>
+<option value="21">Current Events</option><option value="22">Dental Hygiene</option>
+<option value="23">Digital Design and Graphics/Digital Photography</option>
+<option value="24">Early Childhood Development</option><option value="25">Education</option>
+<option value="26">Electronic Engineering Technology</option>
+<option value="27">Emergency Medical Services Technology</option>
+<option value="28">English</option>
+<option value="29">Environmental Science, Safety and Health</option><option value="30">Finance</option>
+<option value="31">General Interest</option><option value="32">Health Information Management Technology</option>
+<option value="33">Hospitality Management</option><option value="34">Human Resources Management</option>
+<option value="35">Humanities</option><option value="36">Interactive Media</option>
+<option value="37">Interpreter Education Program</option>
+<option value="38">Landscape Design and Management</option><option value="39">Library and Information Science</option>
+<option value="40">Marketing</option><option value="41">Massage Therapy</option>
+<option value="42">Mechanical Engineering Technology</option>
+<option value="43">Medical Laboratory Technology</option>
+<option value="44">Mental Health/Addiction Studies/Developmental Disabilities</option>
+<option value="45">Modern Languages</option><option value="46">Newspapers</option>
+<option value="47">Nuclear Medicine Technology</option><option value="48">Nursing</option>
+<option value="49">Paralegal Studies</option><option value="50">Physical Sciences</option> 
+<!-- <option value="51">Psychology</option> -->
+<option value="51">Quality Assurance Technology</option>
+<option value="52">Radiography</option><option value="53">Real Estate</option>
+<option value="54">Respiratory Care</option><option value="55">Social Sciences</option>
+<option value="56">Sport &amp; Exercise Studies</option>
+<option value="57">Surgical Technology</option>
+<option value="58">Veterinary Technology</option> 
+</select> 
+<!-- Text Searching Field --> 
+
+<b style="color:red;">Or</b>, Search by text: <input id="textSearch" maxlength="50" name="textSearch" type="text" />&nbsp; 
+<img alt="Return to the complete list" id="imgSearch" src="http://lgdata.s3-website-us-east-1.amazonaws.com/docs/1668/436335/cancel-icon.png" style="width: 16px; height: 16px;" title="Return to the complete list" />
+<br />
+<br />
+
+<!-- BEGIN PERIODICAL DATA TABLE -->
+<table id="tblSearch" style="width: 100%;">
+	<tbody>
+		<tr style="font-weight: bold; background-color: lightgrey;">
+			<td style="width: 60%;">Title</td>
+			<td style="width: 40%;">Library has From</td>
+			<!--  <td>Category</td> -->
+			<!--  <td>Index</td> -->
+		</tr>
+		<!-- ******************************** --><!-- BEGIN REPLACING SEARCHABLE DATA (Minified, http://www.willpeavy.com/minifier/) -->
+		<!-- ******************************** -->
+		<tr>
+			<td>AARC Times</td>
+			<td>v.32(2008)-</td>
+			<td class="subject">54</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>ABA Journal</td>
+			<td>v.96(2010)-</td>
+			<td class="subject">49</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Access</td>
+			<td>v.24(2010)-</td>
+			<td class="subject">22</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Accounting Today</td>
+			<td>v.24(2010)-</td>
+			<td class="subject">10</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Advertising Age</td>
+			<td>v.83(2012) -</td>
+			<td class="subject">40</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Advertising Age (MICROFILM)</td>
+			<td>v.36(1965)-</td>
+			<td class="subject">40</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Advocate</td>
+			<td>(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>AIDS Patient Care and STDs</td>
+			<td>v.23(2009)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Alcohol Research &amp;Health (Continued by: Alcohol Research: Current Reviews)</td>
+			<td>v.32(2009)-v.34(2012)</td>
+			<td class="subject">44</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Alcohol Research: Current Reviews (Continues: Alcohol Research &amp;Health)</td>
+			<td>v.34(2012)</td>
+			<td class="subject">44</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Alcoholism Treatment Quarterly</td>
+			<td>v.28(2010)-v.29(2011)</td>
+			<td class="subject">44</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Al-Jumah</td>
+			<td>v.24(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>America</td>
+			<td>v.206(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>America (MICROFILM)</td>
+			<td>v.112(1965) - v.191(2004)</td>
+			<td class="subject">21</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Annals of the Deaf</td>
+			<td>v.154(2010)-</td>
+			<td class="subject">37</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Anthropologist</td>
+			<td>v.112(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Art Review</td>
+			<td>v.22(2010)-</td>
+			<td class="subject">35</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Cinematographer</td>
+			<td>v.91(2010)</td>
+			<td class="subject">17</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Economic Journal: Applied Economics</td>
+			<td>v.2(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Economic Journal: Economic Policy</td>
+			<td>v.2(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Economic Journal: Macroeconomics</td>
+			<td>v.2(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Economic Journal: Microeconomics</td>
+			<td>v.2(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Economic Review</td>
+			<td>v.100(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Forests</td>
+			<td>v.115(2010)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Heritage</td>
+			<td>v.60(2010)-</td>
+			<td class="subject">35</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Journal of Botany</td>
+			<td>v.97(2010)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Journal of Clinical Nutrition</td>
+			<td>v.91(2010)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Journal of Nursing</td>
+			<td>v.110(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Journal of Nursing (MICROFILM)</td>
+			<td>v.65(1965)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Journal of Obstetrics and Gynecology</td>
+			<td>v.202(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Journal of Public Health</td>
+			<td>v.100(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Journal of Respiratory &amp;Critical Care Medicine</td>
+			<td>v.181(2010)-v.183(2011)</td>
+			<td class="subject">54</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Journal of Sociology</td>
+			<td>v.115(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Literature</td>
+			<td>v.82(2010)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Photo</td>
+			<td>v.19(2008)-</td>
+			<td class="subject">23</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Printer</td>
+			<td>v.127(2010)-v.128(2011</td>
+			<td class="subject">23</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Scientist</td>
+			<td>v.98(2010)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Sociological Review</td>
+			<td>v.75(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>American Theatre</td>
+			<td>v.27(2010)-v.27(2010)</td>
+			<td class="subject">17</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Annals of Emergency Medicine</td>
+			<td>v.55(2010)-</td>
+			<td class="subject">27</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>AORN Journal</td>
+			<td>v.91(2010)-</td>
+			<td class="subject">57</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Archaeology</td>
+			<td>v.63(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Architect</td>
+			<td>v.99(2010)-v.102(2013)</td>
+			<td class="subject">11</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Architectural Digest</td>
+			<td>v.65(2008)-</td>
+			<td class="subject">11</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Architectural Record</td>
+			<td>v.198(2010)-</td>
+			<td class="subject">11</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Architectural Record (MICROFILM)</td>
+			<td>v.137(1965)-</td>
+			<td class="subject">11</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Art Culinaire</td>
+			<td>v.105(2013)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Art Culinaire MAIN STACKS (641.514 A7842)</td>
+			<td>1986 -</td>
+			<td class="subject">33</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Art In America</td>
+			<td>v.98(2010)-</td>
+			<td class="subject">35</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Astronomy</td>
+			<td>v.39(2011)-</td>
+			<td class="subject">50</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Atlantic Monthly</td>
+			<td>v.309(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Audubon</td>
+			<td>v.112(2010)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Automotive Engineering International</td>
+			<td>v.118(2010)-</td>
+			<td class="subject">12</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Automotive News</td>
+			<td>Current 6 months</td>
+			<td class="subject">12</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Autoweek</td>
+			<td>v.62(2012)-</td>
+			<td class="subject">12</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Aviation Week and Space Technology</td>
+			<td>v.174(2012)-</td>
+			<td class="subject">13</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Aviation Week and Space Technology (MICROFILM)</td>
+			<td>v.82(1965)-v.161(2004)</td>
+			<td class="subject">13</td>
+			<td class="alpha">A</td>
+		</tr>
+		<tr>
+			<td>Barron&#39;s</td>
+			<td>Current 6 months</td>
+			<td class="subject">15</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Beijing Review</td>
+			<td>v.55(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Better Homes and Gardens</td>
+			<td>v.90(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Better Homes and Gardens (MICROFILM)</td>
+			<td>v.43(1965) - v.79(2001)</td>
+			<td class="subject">31</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Bicycling</td>
+			<td>v.53(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Biology Digest</td>
+			<td>v.36(2010)-v.38(2012)</td>
+			<td class="subject">14</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Bioscience</td>
+			<td>v.60(2010)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Black Collegian (Continued by Diversity Employers)</td>
+			<td>v.40(2010)-v.41(2010)</td>
+			<td class="subject">25</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Black Enterprise</td>
+			<td>v.40(2010)-</td>
+			<td class="subject">15</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Bon App&eacute;tit</td>
+			<td>v.55(2010)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Booklist</td>
+			<td>v.108(2012)-</td>
+			<td class="subject">39</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Brides</td>
+			<td>v.79(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Builder</td>
+			<td>v.34(2011)-</td>
+			<td class="subject">19</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Building Design and Construction</td>
+			<td>v.52 (2011)-</td>
+			<td class="subject">19</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Business First</td>
+			<td>Current 6 months</td>
+			<td class="subject">15</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Business First (MICROFILM)</td>
+			<td>1988-2002</td>
+			<td class="subject">15</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Business Week</td>
+			<td>no.4261(2012)-</td>
+			<td class="subject">15</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Business Week (MICROFILM)</td>
+			<td>1965-1996</td>
+			<td class="subject">15</td>
+			<td class="alpha">B</td>
+		</tr>
+		<tr>
+			<td>Canadian Journal of Dental Hygiene</td>
+			<td>v.44(2010)-</td>
+			<td class="subject">22</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Care Management Journals</td>
+			<td>v.11(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Chest</td>
+			<td>v.139(2011)-</td>
+			<td class="subject">54</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Chest (MICROFILM)</td>
+			<td>v.57(1970)-v.126(2004)</td>
+			<td class="subject">54</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Child Psychiatry and Human Development</td>
+			<td>v.41(2010)-</td>
+			<td class="subject">24</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Childhood Education</td>
+			<td>v.86(2009/2010)-</td>
+			<td class="subject">24</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Christianity Today</td>
+			<td>v.56(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Chronicle of Higher Education</td>
+			<td>Current 6 months</td>
+			<td class="subject">25</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Chronicle of Higher Education (MICROFILM)</td>
+			<td>v.11(1976)-v.45(1998)</td>
+			<td class="subject">25</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Civil Engineering</td>
+			<td>v.80(2010)-</td>
+			<td class="subject">16</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Clinical Laboratory Science</td>
+			<td>v.23(2010)-</td>
+			<td class="subject">43</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>College Composition and Communication</td>
+			<td>v.62(2010)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>College English</td>
+			<td>v.73(2011)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Columbus Citizen-Journal (MICROFILM)</td>
+			<td>1980-1985</td>
+			<td class="subject">46</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Columbus Dispatch</td>
+			<td>Current 60 days</td>
+			<td class="subject">46</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Columbus Dispatch (MICROFILM)</td>
+			<td>1980-</td>
+			<td class="subject">46</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Columbus Monthly</td>
+			<td>v.38(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Columbus Monthly (MICROFILM)</td>
+			<td>v.14(1988)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Commentary</td>
+			<td>v.133(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Communication Arts</td>
+			<td>v.49(2008)-</td>
+			<td class="subject">23</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Community College Journal</td>
+			<td>v.80(2010)-</td>
+			<td class="subject">25</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Community College Week</td>
+			<td>Current 6 months</td>
+			<td class="subject">25</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Compendium: Continuing Education for Veterinarians</td>
+			<td>v.30(2008)-v.31(2009)</td>
+			<td class="subject">58</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Computers, Informatics, Nursing (CIN)</td>
+			<td>v.26(2008)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Computerworld</td>
+			<td>v.46(2012)-</td>
+			<td class="subject">18</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Congressional Digest</td>
+			<td>v.91(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Construction Digest</td>
+			<td>v.85(2010)-</td>
+			<td class="subject">19</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Construction Equipment</td>
+			<td>v.113(2010)</td>
+			<td class="subject">19</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Construction Specifier</td>
+			<td>v.61(2008)-</td>
+			<td class="subject">19</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Constructor</td>
+			<td>v.92(2010)-</td>
+			<td class="subject">19</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Consumer Reports &amp;Buying Guide</td>
+			<td>v.77(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Cooking Light</td>
+			<td>v.23(2009)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Cornell Hospitality Quarterly</td>
+			<td>v.51(2010)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Corrections Today</td>
+			<td>v.72(2010)-</td>
+			<td class="subject">20</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Cosmopolitan</td>
+			<td>v. 252(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Counselor Education and Supervision</td>
+			<td>v.49(2010)-</td>
+			<td class="subject">44</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Creative Nonfiction</td>
+			<td>no. 34(2008)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Current Anthropology</td>
+			<td>v.51(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Current History</td>
+			<td>v.107(2008)-</td>
+			<td class="subject">35</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Cycle World</td>
+			<td>v.51(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">C</td>
+		</tr>
+		<tr>
+			<td>Design News</td>
+			<td>v.65(2010)-</td>
+			<td class="subject">26</td>
+			<td class="alpha">D</td>
+		</tr>
+		<tr>
+			<td>Dietary Manager (Continued by: Nutrition &amp;Foodservice Edge)</td>
+			<td>v.17(2008)-v.20(2011)</td>
+			<td class="subject">33</td>
+			<td class="alpha">D</td>
+		</tr>
+		<tr>
+			<td>Digital Photo Pro</td>
+			<td>v.9(2011)-</td>
+			<td class="subject">23</td>
+			<td class="alpha">D</td>
+		</tr>
+		<tr>
+			<td>Digital Video (Continues: DV)</td>
+			<td>v.19(2011)-</td>
+			<td class="subject">36</td>
+			<td class="alpha">D</td>
+		</tr>
+		<tr>
+			<td>Discover</td>
+			<td>v.31(2010)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">D</td>
+		</tr>
+		<tr>
+			<td>Diversity Employers</td>
+			<td>v.1(2011)-</td>
+			<td class="subject">25</td>
+			<td class="alpha">D</td>
+		</tr>
+		<tr>
+			<td>Dog World</td>
+			<td>v.95(2010)-v.97(2012)</td>
+			<td class="subject">31</td>
+			<td class="alpha">D</td>
+		</tr>
+		<tr>
+			<td>DV (Continued by: Digital Video)</td>
+			<td>v.18(2011)-v.19(2011)</td>
+			<td class="subject">36</td>
+			<td class="alpha">D</td>
+		</tr>
+		<tr>
+			<td>E: the Environmental Magazine</td>
+			<td>v.21(2010)-</td>
+			<td class="subject">29</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Early Childhood Education Journal</td>
+			<td>v.37(2010)-</td>
+			<td class="subject">24</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Early Childhood Research Quarterly</td>
+			<td>v.25(2010)-</td>
+			<td class="subject">24</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Ebony</td>
+			<td>v.67(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Ecology</td>
+			<td>v.91(2010)-</td>
+			<td class="subject">29</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Economist</td>
+			<td>v.398(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Edge</td>
+			<td>issue 210(2010)-</td>
+			<td class="subject">36</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Education Digest</td>
+			<td>v.75(2010)-</td>
+			<td class="subject">25</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Education Week</td>
+			<td>v.31(2012)-</td>
+			<td class="subject">25</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Emergency Medicine</td>
+			<td>v.40(2008)-</td>
+			<td class="subject">27</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Emergency Medicine Clinics of North America</td>
+			<td>v.26(2008)-</td>
+			<td class="subject">27</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>EMS Magazine (Continued by: EMS World)</td>
+			<td>v.39(2010)</td>
+			<td class="subject">27</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>EMS World (Continues: EMS Magazine)</td>
+			<td>v.39(2010)-</td>
+			<td class="subject">27</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>ENR</td>
+			<td>v.268(2012)-</td>
+			<td class="subject">19</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Entertainment Weekly</td>
+			<td>no.1188(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Environmental Nutrition</td>
+			<td>v.33(2010)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>ESPN</td>
+			<td>v.15(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Esquire</td>
+			<td>v.157(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Esquire (MICROFICHE)</td>
+			<td>v.103(1985)-v.136(2001)</td>
+			<td class="subject">31</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Essence</td>
+			<td>v.42(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Every Day with Rachael Ray</td>
+			<td>v.7(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Exchange</td>
+			<td>v.32(2010)-</td>
+			<td class="subject">24</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Executive Housekeeping Today</td>
+			<td>v.30(2008)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Exercise and Sport Sciences Review</td>
+			<td>v.36(2008)-</td>
+			<td class="subject">56</td>
+			<td class="alpha">E</td>
+		</tr>
+		<tr>
+			<td>Facts &amp;Findings</td>
+			<td>v.38(2012)-</td>
+			<td class="subject">49</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Families in Society</td>
+			<td>v.89(2008)-</td>
+			<td class="subject">24</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>FBI Law Enforcement Bulletin</td>
+			<td>v.79(2010)-v.81(2012)</td>
+			<td class="subject">20</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Field and Stream</td>
+			<td>v.116(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Fine Gardening</td>
+			<td>no.131(2010)-</td>
+			<td class="subject">38</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Fine Homebuilding</td>
+			<td>no.208(2010)-</td>
+			<td class="subject">19</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Flying</td>
+			<td>v.137(2010)-</td>
+			<td class="subject">13</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Focus on Africa</td>
+			<td>v.23(2012)-v.23(2012)</td>
+			<td class="subject">31</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Food and Wine</td>
+			<td>v.31(2008)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Food Arts</td>
+			<td>v.24(2008)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Food Technology</td>
+			<td>v.62(2008)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Forbes</td>
+			<td>v.187(2011)-</td>
+			<td class="subject">15</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Forbes (MICROFILM)</td>
+			<td>v.105(1970)-v.174(2004)</td>
+			<td class="subject">15</td>
+			<td class="alpha">F</td>
+		</tr>
+		<tr>
+			<td>Game Developer</td>
+			<td>v.17(2010)-v.20(2013)</td>
+			<td class="subject">36</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>Gamepro</td>
+			<td>v.22(2010)-v.23(2011)</td>
+			<td class="subject">36</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>Garden Design</td>
+			<td>v.169(2010)-v.186(2013)</td>
+			<td class="subject">38</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>Geriatric Nursing</td>
+			<td>v.31(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>Gerontologist</td>
+			<td>v.50(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>Golf Digest</td>
+			<td>v.62(2011)-</td>
+			<td class="subject">56</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>Good Housekeeping (MICROFILM)</td>
+			<td>v.180-181(1975) - v.232-233(2001)</td>
+			<td class="subject">31</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>GQ: Gentlemen&#39;s Quarterly</td>
+			<td>v.82(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>GQ: Gentlemen&#39;s Quarterly (MICROFICHE)</td>
+			<td>v.68(1998)-v.74(2004)</td>
+			<td class="subject">31</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>GreenSource</td>
+			<td>v.5(2010)-</td>
+			<td class="subject">19</td>
+			<td class="alpha">G</td>
+		</tr>
+		<tr>
+			<td>Harper&#39;s</td>
+			<td>v.324(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>Harper&#39;s (MICROFILM)</td>
+			<td>v.244(1972)- v.309(2004)</td>
+			<td class="subject">31</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>Harvard Business Review</td>
+			<td>v.90(2012)-</td>
+			<td class="subject">15</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>Harvard Health Letter</td>
+			<td>v.37(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>History Today</td>
+			<td>v.60(2010)-</td>
+			<td class="subject">35</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>Home Healthcare Nurse</td>
+			<td>v.26(2008)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>Horticulture</td>
+			<td>v.107(2010)-</td>
+			<td class="subject">38</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>Hospitals and Health Networks</td>
+			<td>v.84(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>HR Magazine</td>
+			<td>v.55(2010)-</td>
+			<td class="subject">34</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>Humanist</td>
+			<td>v.72(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">H</td>
+		</tr>
+		<tr>
+			<td>IEEE Spectrum</td>
+			<td>v.47(2010)-</td>
+			<td class="subject">26</td>
+			<td class="alpha">I</td>
+		</tr>
+		<tr>
+			<td>Inc.</td>
+			<td>v.34(2012)-</td>
+			<td class="subject">15</td>
+			<td class="alpha">I</td>
+		</tr>
+		<tr>
+			<td>Information Today</td>
+			<td>v.29(2012)-</td>
+			<td class="subject">39</td>
+			<td class="alpha">I</td>
+		</tr>
+		<tr>
+			<td>InStyle</td>
+			<td>v.19(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">I</td>
+		</tr>
+		<tr>
+			<td>Intellectual and Developmental Disabilities</td>
+			<td>v.48(2010)-v.50(2012)</td>
+			<td class="subject">44</td>
+			<td class="alpha">I</td>
+		</tr>
+		<tr>
+			<td>Internet Retailer</td>
+			<td>v.13(2011)-</td>
+			<td class="subject">36</td>
+			<td class="alpha">I</td>
+		</tr>
+		<tr>
+			<td>JAMA: Journal of the American Medical Association</td>
+			<td>v.307(2012)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>JAMA: Journal of the American Medical Association (MICROFILM)</td>
+			<td>v.259(1988)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Jazziz (CD in Main Stacks: CD781.65 J42915)</td>
+			<td>v.29(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>JEMS</td>
+			<td>v.35(2010)-</td>
+			<td class="subject">27</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Jet</td>
+			<td>v.121(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Accountancy</td>
+			<td>v.211(2011)-</td>
+			<td class="subject">10</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Addictive Diseases</td>
+			<td>v.29(2010)-</td>
+			<td class="subject">44</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of American Health Information Management Association (AHIMA)</td>
+			<td>v.79(2008)-v.81(2010);v.83(2012)-</td>
+			<td class="subject">32</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Chemical Education</td>
+			<td>v.87(2010)-</td>
+			<td class="subject">50</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Counseling and Development</td>
+			<td>v.88(2010)-</td>
+			<td class="subject">44</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Criminal Law and Criminology</td>
+			<td>v.100(2010)-</td>
+			<td class="subject">20</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Dental Education</td>
+			<td>v.74(2010)-</td>
+			<td class="subject">22</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Economic Literature</td>
+			<td>v.48(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Economic Perspectives</td>
+			<td>v.24(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Engineering Technology</td>
+			<td>v.25(2008)-</td>
+			<td class="subject">26</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Gerontological Nursing</td>
+			<td>v.36(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of International Marketing</td>
+			<td>v.18(2010)-</td>
+			<td class="subject">40</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Midwifery &amp;Women&#39;s Health</td>
+			<td>v.55(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Nuclear Medicine</td>
+			<td>v.51(2010)-</td>
+			<td class="subject">47</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Nursing Education</td>
+			<td>v.49(2010)</td>
+			<td class="subject">48</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Periodontology</td>
+			<td>v.81(2010)-</td>
+			<td class="subject">22</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Physical Education, Recreation &amp;Dance (JOPERD)</td>
+			<td>v.81(2010)-</td>
+			<td class="subject">56</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Practical Nursing</td>
+			<td>v.60(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Professional Nursing</td>
+			<td>v.25(2009)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Psychosocial Nursing and Mental Health Services</td>
+			<td>v.48(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Psychosocial Nursing and Mental Health Services (MICROFICHE)</td>
+			<td>v.34(1996)-v.48(2010)</td>
+			<td class="subject">48</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Public Health Dentistry</td>
+			<td>v.70(2010)-</td>
+			<td class="subject">22</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Research in Childhood Education</td>
+			<td>v.24(2010)-</td>
+			<td class="subject">24</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Short Film MAIN STACKS (DVD 791.436 J864)</td>
+			<td>v.10(2008)-</td>
+			<td class="subject">17</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Social Work Education</td>
+			<td>v.46(2010)-v.48(2012)</td>
+			<td class="subject">44</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Sport Management</td>
+			<td>v.24(2010)-</td>
+			<td class="subject">56</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of the Academy of Nutrition and Dietetics (Continues: Journal of the American Dietetic Association)</td>
+			<td>v.112(2012)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of the American Dental Association</td>
+			<td>v.140(2009)-</td>
+			<td class="subject">22</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of the American Dietetic Association (Continued by: Journal of the Academy of Nutrition and Dietetics)</td>
+			<td>v.110(2010)-v.111(2011)</td>
+			<td class="subject">33</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of the American Veterinary Medical Association</td>
+			<td>v.236(2010)-</td>
+			<td class="subject">58</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of the American Veterinary Medical Association (MICROFILM)</td>
+			<td>v.166(1975)-</td>
+			<td class="subject">58</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Journal of Wildlife Diseases</td>
+			<td>v.46(2010)-</td>
+			<td class="subject">58</td>
+			<td class="alpha">J</td>
+		</tr>
+		<tr>
+			<td>Kiplinger&#39;s Personal Finance</td>
+			<td>v.66(2012)-</td>
+			<td class="subject">30</td>
+			<td class="alpha">K</td>
+		</tr>
+		<tr>
+			<td>Laboratory Medicine</td>
+			<td>v.41(2010)-</td>
+			<td class="subject">43</td>
+			<td class="alpha">L</td>
+		</tr>
+		<tr>
+			<td>Ladies&#39;Home Journal (MICROFILM)</td>
+			<td>v.82(1965) - v.118(2001)</td>
+			<td class="subject">31</td>
+			<td class="alpha">L</td>
+		</tr>
+		<tr>
+			<td>Landscape Architecture</td>
+			<td>v.100(2010)-</td>
+			<td class="subject">38</td>
+			<td class="alpha">L</td>
+		</tr>
+		<tr>
+			<td>Law and Order</td>
+			<td>v.58(2010)-</td>
+			<td class="subject">20</td>
+			<td class="alpha">L</td>
+		</tr>
+		<tr>
+			<td>Legal Assistant Today (Continued by: Paralegal Today)</td>
+			<td>v.25(2008)-v.26(2009)</td>
+			<td class="subject">49</td>
+			<td class="alpha">L</td>
+		</tr>
+		<tr>
+			<td>Library Journal</td>
+			<td>v.137(2012)-</td>
+			<td class="subject">39</td>
+			<td class="alpha">L</td>
+		</tr>
+		<tr>
+			<td>Lodging</td>
+			<td>v.33(2008)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">L</td>
+		</tr>
+		<tr>
+			<td>Lodging Hospitality</td>
+			<td>v.67(2011)-v.69(2013)</td>
+			<td class="subject">33</td>
+			<td class="alpha">L</td>
+		</tr>
+		<tr>
+			<td>Long-Term Living</td>
+			<td>v.59(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">L</td>
+		</tr>
+		<tr>
+			<td>MacWorld</td>
+			<td>v.29(2012)-</td>
+			<td class="subject">18</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Make</td>
+			<td>v.34(2013)-</td>
+			<td class="subject">39</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Manufacturing Engineering</td>
+			<td>v.144(2010)-</td>
+			<td class="subject">42</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Massage</td>
+			<td>no.172(2010)-</td>
+			<td class="subject">41</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Massage &amp;Bodywork</td>
+			<td>v.26(2011)-</td>
+			<td class="subject">41</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Massage Therapy Journal</td>
+			<td>v.47(2008)-</td>
+			<td class="subject">41</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>MCN</td>
+			<td>v.33(2008)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Mechanical Engineering</td>
+			<td>v.132(2010)-</td>
+			<td class="subject">42</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Men&#39;s Fitness</td>
+			<td>v.28(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Men&#39;s Health</td>
+			<td>v.27(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Men&#39;s Journal</td>
+			<td>v.21(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Modern Fiction Studies</td>
+			<td>v.56(2010)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Money</td>
+			<td>v.40(2011)-</td>
+			<td class="subject">30</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Mother Jones</td>
+			<td>v.37(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Motor</td>
+			<td>v.217(2012)-</td>
+			<td class="subject">12</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Motor Trend</td>
+			<td>v.64(2012)-</td>
+			<td class="subject">12</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Motor Trend (MICROFILM)</td>
+			<td>v.27(1975)-v.56(2004)</td>
+			<td class="subject">12</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>Ms.</td>
+			<td>v.22(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">M</td>
+		</tr>
+		<tr>
+			<td>NADmag</td>
+			<td>v.8(2008)-</td>
+			<td class="subject">37</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nation</td>
+			<td>v.294(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>National Catholic Reporter</td>
+			<td>Current 6 months</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>National Culinary Review</td>
+			<td>v.32(2008)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>National Geographic</td>
+			<td>v.221(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>National Geographic (MICROFILM)</td>
+			<td>v.157(1979)-v.218(2010)</td>
+			<td class="subject">31</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>National Law Journal</td>
+			<td>Current 6 months</td>
+			<td class="subject">49</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>National Paralegal Reporter</td>
+			<td>v.36(2012)-</td>
+			<td class="subject">49</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>National Review</td>
+			<td>v.64(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>National Wildlife</td>
+			<td>v.50(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nation&#39;s Cities Weekly</td>
+			<td>v.35(2012)</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nation&#39;s Restaurant News</td>
+			<td>v.46(2012)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nature</td>
+			<td>v.481(2012)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nature (MICROFICHE)</td>
+			<td>v.379-384(1996)-v.463-465(2010)</td>
+			<td class="subject">14</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>NEA Today</td>
+			<td>v.27(2009)-v.31(2012)</td>
+			<td class="subject">25</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New England Journal of Medicine</td>
+			<td>v.366(2012)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New England Journal of Medicine (MICROFILM)</td>
+			<td>v.302(1980)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New Republic</td>
+			<td>v.243(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New Republic (MICROFILM)</td>
+			<td>v.152(1965)-v.200(1989)</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New Scientist</td>
+			<td>v.213(2012)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New Statesman</td>
+			<td>v.141(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New York Review of Books</td>
+			<td>v.59(2012)-</td>
+			<td class="subject">39</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New York Times (MICROFILM)</td>
+			<td>v.127(1978)-v.159(2009)</td>
+			<td class="subject">46</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New Yorker</td>
+			<td>v.87(2012)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>New Yorker (MICROFILM)</td>
+			<td>v.41(1965)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Newsweek</td>
+			<td>v.158/159(2012)-v.160(2012)</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Newsweek (MICROFILM)</td>
+			<td>v.65(1965)-v.160(2012)</td>
+			<td class="subject">21</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nursing</td>
+			<td>v.41(2011)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nursing (MICROFILM)</td>
+			<td>v.1(1971)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nursing Management</td>
+			<td>v.41(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nursing Research</td>
+			<td>v.59(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nursing Research (MICROFILM)</td>
+			<td>v.14(1965)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nursing Times (MICROFILM)</td>
+			<td>v.61(1965)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nursing Times: NT</td>
+			<td>v.107(2011)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nutrition &amp;Foodservice Edge (Continues: Dietary Manager)</td>
+			<td>v.21(2012)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>Nutrition Today</td>
+			<td>v.43(2008)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">N</td>
+		</tr>
+		<tr>
+			<td>O (The Oprah Magazine)</td>
+			<td>v.13(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">O</td>
+		</tr>
+		<tr>
+			<td>Official Xbox Magazine</td>
+			<td>issue 105(2010)-</td>
+			<td class="subject">36</td>
+			<td class="alpha">O</td>
+		</tr>
+		<tr>
+			<td>Ohio</td>
+			<td>v.34(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">O</td>
+		</tr>
+		<tr>
+			<td>Organic Gardening</td>
+			<td>v.57(2010)-</td>
+			<td class="subject">38</td>
+			<td class="alpha">O</td>
+		</tr>
+		<tr>
+			<td>Out</td>
+			<td>v.20(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">O</td>
+		</tr>
+		<tr>
+			<td>Outdoor Photographer</td>
+			<td>v.27(2010)-</td>
+			<td class="subject">23</td>
+			<td class="alpha">O</td>
+		</tr>
+		<tr>
+			<td>Paralegal Today (Continues: Legal Assistant Today)</td>
+			<td>v.27(2009)-</td>
+			<td class="subject">49</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Parents</td>
+			<td>v.87(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Parents (MICROFILM)</td>
+			<td>v.50(1975)-v.79(2004)</td>
+			<td class="subject">31</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Paris Match</td>
+			<td>no.3268(2012)-</td>
+			<td class="subject">45</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>PC Gamer</td>
+			<td>v.17(2010)-no.226(2012)</td>
+			<td class="subject">36</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Pediatric Nursing</td>
+			<td>v.36(2010)-</td>
+			<td class="subject">48</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>People Weekly</td>
+			<td>Current 6 months</td>
+			<td class="subject">21</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Physics Today</td>
+			<td>v.61(2008)-</td>
+			<td class="subject">50</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Playboy (MICROFILM)</td>
+			<td>v.43(1996)-v.56(2009)</td>
+			<td class="subject">31</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Police Chief</td>
+			<td>v.77(2010)-</td>
+			<td class="subject">20</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Popular Mechanics</td>
+			<td>v.189(2012)-</td>
+			<td class="subject">42</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Popular Mechanics (MICROFILM)</td>
+			<td>v.123(1965)-v.181(2004)</td>
+			<td class="subject">42</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Popular Photography</td>
+			<td>v.74(2010)-</td>
+			<td class="subject">23</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Popular Science</td>
+			<td>v.280(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Print</td>
+			<td>v.64(2010)-</td>
+			<td class="subject">23</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Progressive</td>
+			<td>v.75(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Psychological Reports</td>
+			<td>v.102(2008)-v.107(2010)</td>
+			<td class="subject">31</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Psychology Today</td>
+			<td>v.45(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Psychology Today (MICROFILM)</td>
+			<td>v.2(1968)-v.37(2004)</td>
+			<td class="subject">31</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Publisher&#39;s Weekly</td>
+			<td>v.259(2012)-</td>
+			<td class="subject">39</td>
+			<td class="alpha">P</td>
+		</tr>
+		<tr>
+			<td>Quality Progress</td>
+			<td>v.41(2008)-</td>
+			<td class="subject">51</td>
+			<td class="alpha">Q</td>
+		</tr>
+		<tr>
+			<td>Radiologic Technology</td>
+			<td>v.81(2010)-</td>
+			<td class="subject">52</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>RDH</td>
+			<td>v.30(2010)-</td>
+			<td class="subject">22</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Reader&#39;s Digest (MICROFILM)</td>
+			<td>v.86-87(1965)- v.176-177(2010)</td>
+			<td class="subject">31</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Reader&#39;s Digest Selecciones</td>
+			<td>n.770(2005)-n.823(2009).</td>
+			<td class="subject">45</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Real Estate Review</td>
+			<td>v.39(2010)-</td>
+			<td class="subject">53</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Real Simple</td>
+			<td>v.13(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Realtor Magazine</td>
+			<td>v.43(2010)-</td>
+			<td class="subject">53</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Reason</td>
+			<td>v.43(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Research in African Literatures</td>
+			<td>v.41(2010)-</td>
+			<td class="subject">35</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Research in the Teaching of English</td>
+			<td>v.45(2011)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Respiratory Care</td>
+			<td>v.53(2008)-</td>
+			<td class="subject">54</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Respiratory Care (MICROFILM)</td>
+			<td>v.19(1974)-</td>
+			<td class="subject">54</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Restaurant Hospitality</td>
+			<td>v.94(2010)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Restaurants &amp;Institutions (MICROFICHE)</td>
+			<td>v.106(1996)-v.120(2010)</td>
+			<td class="subject">33</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>RN (MICROFILM)</td>
+			<td>v.28(1965)-v.72(2009)</td>
+			<td class="subject">48</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Road and Track</td>
+			<td>v.61(2010)-</td>
+			<td class="subject">12</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Rolling Stone</td>
+			<td>no.1146/1147(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Rolling Stone (MICROFILM)</td>
+			<td>no.569(1990)-no.976(2005)</td>
+			<td class="subject">31</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Runner&#39;s World</td>
+			<td>v.45(2010)-</td>
+			<td class="subject">56</td>
+			<td class="alpha">R</td>
+		</tr>
+		<tr>
+			<td>Schizophrenia Bulletin</td>
+			<td>v.36(2010)-</td>
+			<td class="subject">44</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>School Nutrition (Continues: School Food Service and Nutrition)</td>
+			<td>v.62(2008)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Science</td>
+			<td>v.335(2012)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Science (MICROFILM)</td>
+			<td>v.147(1965)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Science Fiction Studies</td>
+			<td>v.37(2010)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Science News</td>
+			<td>v.177(2010)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Scientific American</td>
+			<td>v.302(2010)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Scientific American (MICROFILM)</td>
+			<td>v.212-213(1965)-v.283(2004)</td>
+			<td class="subject">14</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Scientist</td>
+			<td>v.24(2010)-</td>
+			<td class="subject">14</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Seminars in Nuclear Medicine</td>
+			<td>v.40(2010)-</td>
+			<td class="subject">47</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Shakespeare Quarterly</td>
+			<td>v.61(2010)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Shutterbug</td>
+			<td>v.39(2010)-</td>
+			<td class="subject">23</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Sign Language Studies</td>
+			<td>v.10(2010)-</td>
+			<td class="subject">37</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Sizzle</td>
+			<td>v.4(2007)-v.7(2010)</td>
+			<td class="subject">33</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Sky and Telescope</td>
+			<td>v.115(2008)-</td>
+			<td class="subject">50</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Smithsonian</td>
+			<td>v.42(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Social Problems</td>
+			<td>v.57(2010)-</td>
+			<td class="subject">55</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Social Work</td>
+			<td>v.55(2010)-</td>
+			<td class="subject">44</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Sound and Vision</td>
+			<td>v.77(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Special Events</td>
+			<td>v.29(2010)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Sports Illustrated</td>
+			<td>v.116(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Sports Illustrated (MICROFILM)</td>
+			<td>v.22(1965)-v.101(2004)</td>
+			<td class="subject">31</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Strength and Conditioning Journal</td>
+			<td>v.32(2010)-</td>
+			<td class="subject">56</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Studies in Short Fiction</td>
+			<td>v.33(1996)-v.36(1999);v.37(2012)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>Surgical Technologist</td>
+			<td>v.40(2008)-</td>
+			<td class="subject">57</td>
+			<td class="alpha">S</td>
+		</tr>
+		<tr>
+			<td>T &amp;D</td>
+			<td>v.64(2010)-</td>
+			<td class="subject">15</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Teaching English in the Two-Year College</td>
+			<td>v.37(2009)-</td>
+			<td class="subject">28</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Technology Review: MIT&#39;s Magazine of Innovation</td>
+			<td>v.113(2010)-</td>
+			<td class="subject">26</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Time</td>
+			<td>v.179(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Time (MICROFILM)</td>
+			<td>v.75(1960)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Times Educational Supplement</td>
+			<td>Current 6 months</td>
+			<td class="subject">25</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Today&#39;s Dietitian</td>
+			<td>v.12(2010)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Training</td>
+			<td>v.47(2010)-</td>
+			<td class="subject">15</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Transportation Journal</td>
+			<td>v.49(2010)-</td>
+			<td class="subject">40</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Travel Weekly</td>
+			<td>v.71(2012)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>Tufts University Health &amp;Nutrition Letter</td>
+			<td>v.28(2010)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">T</td>
+		</tr>
+		<tr>
+			<td>U.S. News and World Report (MICROFILM)</td>
+			<td>v.58(1965)-v.108(1990)</td>
+			<td class="subject">21</td>
+			<td class="alpha">U</td>
+		</tr>
+		<tr>
+			<td>UTNE Reader</td>
+			<td>no.169(2012)-</td>
+			<td class="subject">21</td>
+			<td class="alpha">U</td>
+		</tr>
+		<tr>
+			<td>Vegetarian Times</td>
+			<td>no.36(2010)-</td>
+			<td class="subject">33</td>
+			<td class="alpha">V</td>
+		</tr>
+		<tr>
+			<td>Veterinary Economics</td>
+			<td>v.49(2008)-</td>
+			<td class="subject">58</td>
+			<td class="alpha">V</td>
+		</tr>
+		<tr>
+			<td>Veterinary Medicine</td>
+			<td>v.105(2010)-</td>
+			<td class="subject">58</td>
+			<td class="alpha">V</td>
+		</tr>
+		<tr>
+			<td>Veterinary Technician</td>
+			<td>v.29(2008)-v.30(2009)</td>
+			<td class="subject">58</td>
+			<td class="alpha">V</td>
+		</tr>
+		<tr>
+			<td>Videomaker</td>
+			<td>v.24(2010)-</td>
+			<td class="subject">36</td>
+			<td class="alpha">V</td>
+		</tr>
+		<tr>
+			<td>Views</td>
+			<td>v.25(2008)-</td>
+			<td class="subject">37</td>
+			<td class="alpha">V</td>
+		</tr>
+		<tr>
+			<td>Vogue</td>
+			<td>v.202(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">V</td>
+		</tr>
+		<tr>
+			<td>Vogue (MICROFILM)</td>
+			<td>v.146(1965)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">V</td>
+		</tr>
+		<tr>
+			<td>Wall Street Journal (MICROFILM)</td>
+			<td>(1970)-(2009)</td>
+			<td class="subject">46</td>
+			<td class="alpha">W</td>
+		</tr>
+		<tr>
+			<td>Whole Living</td>
+			<td>v.29(2012)-v.30(2013)</td>
+			<td class="subject">31</td>
+			<td class="alpha">W</td>
+		</tr>
+		<tr>
+			<td>Wired</td>
+			<td>v.20(2012)-</td>
+			<td class="subject">18</td>
+			<td class="alpha">W</td>
+		</tr>
+		<tr>
+			<td>Workforce Management</td>
+			<td>v.89(2010)-</td>
+			<td class="subject">34</td>
+			<td class="alpha">W</td>
+		</tr>
+		<tr>
+			<td>Working Mother</td>
+			<td>v.35(2012)-</td>
+			<td class="subject">31</td>
+			<td class="alpha">W</td>
+		</tr>
+		<tr>
+			<td>World Literature Today</td>
+			<td>v.84(2010)</td>
+			<td class="subject">28</td>
+			<td class="alpha">W</td>
+		</tr>
+		<tr>
+			<td>WWD: Women&#39;s Wear Daily</td>
+			<td>Current 6 months</td>
+			<td class="subject">40</td>
+			<td class="alpha">W</td>
+		</tr>
+		<tr>
+			<td>YC Young Children</td>
+			<td>v.65(2010)-</td>
+			<td class="subject">24</td>
+			<td class="alpha">Y</td>
+		</tr>
+		<!-- ************************ --><!-- * END DATA REPLACEMENT * --><!-- ************************ -->
+	</tbody>
+</table>
+</div>
