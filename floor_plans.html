@@ -1,0 +1,87 @@
+<style type="text/css">button {
+background-color: #fffff0;
+color: #044559; 
+cursor:pointer; 
+padding-top: 5px;
+padding-bottom: 5px;
+border: 1px solid #044559;
+}
+
+button:focus {
+background-color: #9d3452;
+color: #ffffff;
+}
+
+button:hover {
+background-color: #9d3452;
+color: #ffffff; 
+cursor:pointer; 
+}
+
+button::-moz-focus-inner { 
+border: 0;
+}
+
+#maps_nav {
+text-align: center;
+margin-top: 3px;
+margin-bottom: 8px;
+}
+</style>
+<div id="maps_nav"><button autofocus="" id="show_first" type="button">Columbus First Floor</button><button id="show_second" type="button">Columbus Second Floor</button><button id="show_third" type="button">Columbus Third Floor</button><button id="show_delaware" type="button">Delaware Learning Center</button></div>
+
+<div id="first_floor"><img src="http://lgimages.s3.amazonaws.com/data/imagemanager/43487/library_first_floor.png" /></div>
+
+<div id="second_floor"><img src="http://lgimages.s3.amazonaws.com/data/imagemanager/43487/library_second_floor.png" /></div>
+
+<div id="third_floor"><img src="http://lgimages.s3.amazonaws.com/data/imagemanager/43487/library_third_floor.png" /></div>
+
+<div align="center" id="delaware_floor"><img src="http://lgimages.s3.amazonaws.com/data/imagemanager/42864/moeller_color_coded_modified_key.jpg" /></div>
+<script>
+
+$("#first_floor").show(1000);
+$("#second_floor").hide(1000);
+$("#third_floor").hide(1000);
+$("#delaware_floor").hide(1000);
+
+$( "#show_first" ).click(function() {
+  $("#second_floor").hide(1000);
+  $("#third_floor").hide(1000);
+  $("#delaware_floor").hide(1000);
+  $( "#first_floor" ).show( "slow", function() {
+    // Animation complete.
+  });
+});
+
+
+$( "#show_second" ).click(function() {
+  $("#first_floor").hide(1000);
+  $("#third_floor").hide(1000);
+  $("#delaware_floor").hide(1000);
+  $( "#second_floor" ).show( "slow", function() {
+    // Animation complete.
+  });
+});
+
+
+$( "#show_third" ).click(function() {
+  $("#first_floor").hide(1000);
+  $("#second_floor").hide(1000);
+  $("#delaware_floor").hide(1000);
+  $( "#third_floor").show( "slow", function() {
+    // Animation complete.
+  });
+});
+
+
+$( "#show_delaware" ).click(function() {
+  $("#first_floor").hide(1000);
+  $("#second_floor").hide(1000);
+  $("#third_floor").hide(1000);
+  $("#delaware_floor").show( "slow", function() {
+    // Animation complete.
+  });
+});
+
+
+</script>
