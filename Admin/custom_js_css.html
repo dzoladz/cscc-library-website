@@ -1,0 +1,410 @@
+<!--
+* LGv2 Customizer v1.0
+* Derek C. Zoladz (2015)
+* Derek C. Zoladz, Eric T. Davis (2014)
+-->
+
+<!-- Table of Contents
+----------------------------- 
+Resources & Scripts
+  # Favicon
+  # Web Clip Icons [placeholder]
+  # Remove Homepage Tabs
+  # Language Customizations
+  # Bug Fixes
+
+CSS
+  # LINKS
+  # TABLES
+  # CUSTOM CLASSES
+  # LIBRARY HOME PAGE
+  # GUIDE PAGE ELEMENTS
+  # A-Z DATABASE LIST
+  # ADMIN ELEMENTS
+  # HANGING INDENT FOR MLA & APA GUIDES
+  # SUBJECT PAGE
+  # NAVIGATION MENU
+  # FOOTER
+------------------------------- -->
+
+
+<!-- CSCC Favicon -->
+<link rel="shortcut icon" href="http://www.cscc.edu/_resources/images/favicon.ico" type="image/x-icon" />
+
+<!-- WEBCLIP Icons  -->
+<link rel="apple-touch-icon-precomposed" sizes="" href="">
+
+<!-- Apply css only to /home friendlies --> 
+<script type="text/javascript">var urlArray = window.location.pathname.split( '/' );var directory = urlArray[1];if (directory == "home") { document.write ('<style type="text/css">div#custom_header ~ div#s-lg-tabs-container {display:none;} div#custom_header ~ div#s-lg-guide-header {display:none;}</style>');}else {document.write ('<style></style>');}</script>
+
+<!-- Language Customization -->
+<script>
+// SET BREE MILLER EMAIL BUTTON
+// CUSTOM LOGIN TEXT
+$( document ).ready(function() {
+    $("#s-lib-profile-email-16862 > a").text("Send Mail");
+    $("#s-lib-footer-login-link > a").text("Staff Login");
+});
+</script>
+
+<!-- Bug Fixes -->
+<script type="text/javascript">
+// Corrections for issues with default window behavior
+// BOOKS FROM THE CATALOG, PDF Files
+    $(document).ready(function(){        
+        $(".s-lg-book-props > a").removeAttr("target");   
+        $("div[id^='s-lg-book-cover-'] > a").removeAttr("target");   
+        $("i.fa-file-pdf-o ~ span > a").removeAttr("target"); 
+    });
+</script>
+
+<script type="text/javascript">
+//RSS Feeds
+    $(document).ready(function(){        
+        setTimeout(function() {
+         $(".s-lg-rss-list-item > .s-lg-title > a").removeAttr("target"); 
+    }, 1000);   
+    });
+</script>
+
+
+<!-- STYLES -->
+<style>
+
+
+/* LINKS
+======================================== */
+a {color: #007db6;}
+a:visited {}
+a:hover {color: #007db6; text-decoration: underline;}
+ui-widget-content a {color: #007db6;}
+ui-widget-content a:visited {}
+ui-widget-content a:hover {color: #007db6; text-decoration: underline;}
+ui-widget-content a:active {outline: 1px dotted #007db6;}
+
+/* TABLES
+======================================== */
+td {padding:4px;}
+td.vertical-align {vertical-align: middle !important;}
+@-moz-document url-prefix() {fieldset {display: table-cell; }}
+/* FAQ */
+p.dana_click:hover {color: #2954D1; cursor:pointer;}
+div.dana_text {
+background-color: #EAFAE8;
+padding: 4px;
+border: 1px dotted #C8C8C8;
+font-size:12px; 
+margin: 0px 0px 7px -5px; 
+}
+
+p.dana_click {font-size:12px; }
+
+/* MOBILE APP IMAGES */
+.td-app-image {width: 20%;}
+
+@media all and (min-width: 768px)   {
+.td-app-image {width: 15%;}
+}
+
+@media all and (min-width: 992px)  {
+  .td-app-image {width: 15%;}
+}
+
+@media all and (min-width: 1200px)  {
+  .td-app-image {width: 10%;}
+}
+
+
+/* CUSTOM CLASSES
+======================================== */
+/* FAQ */
+.faq > tbody > tr > td:first-child {vertical-align: top; width: 20px; padding: 0px;}
+.faq > tbody > tr > td:first-child > img {width: 20px;}
+/* NO BORDER */
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {border: none;}
+/*BULLETED LISTS */
+.bullet-left-align {margin-left:-18px;}
+ul.left-align li {margin-left:-18px;}
+/* IMAGE SHADOW */
+.shadow {
+  -moz-box-shadow: 3px 3px 4px #000;
+  -webkit-box-shadow: 3px 3px 4px #000;
+  box-shadow: 3px 3px 4px #000;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+
+/* LIBRARY HOME PAGE
+======================================== */
+/* Note:  
+  (1) Home Page Contains a Hidden Box to Hide Box Titles  
+  (2) Script Hides Tabs on /home URLs */
+
+
+/* ROTATING IMAGE GALLERY */
+/* Note: Behavioral Controls in the Content Box */
+/* Author: Viljami Salminen, https://github.com/viljamis/ResponsiveSlides.js */
+/* Mods: Derek C. Zoladz, 2014 */
+
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  }
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+  }
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left;
+  }
+
+.rslides img {
+  display: block;
+  height: auto;
+  float: left;
+  width: 100%;
+  border: 0;
+  }
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /*background-color: #003e52;*/
+  /*Eric's new background color 1 2015*/
+  background-color: #005cb8;
+  opacity: 0.8;
+  color: #fff;
+  text-align: center;
+  padding-top: 2px; 
+  padding-bottom: 2px; 
+}
+
+
+/* GUIDE PAGE ELEMENTS
+======================================== */
+/* Titles */
+h1#s-lg-guide-name {font-weight: bold; font-size:20px;}
+/* Research Guides List */
+#s-lg-index-list {margin-top: 10px; margin-bottom: 20px;}
+.nav-pills>li.active>a {background-color: #9d3452;}.nav-pills>li.active>a:hover {background-color: #9d3452;}
+
+
+/* A-Z DATABASE LIST
+======================================== */
+/* Remove 'More Info' underneath databases */
+div.s-lg-label-moreinfo {display: none;}
+/* Remove 'Share' icon for each database */
+.s-lg-az-result-share {display: none;}
+/* Dropdown Lists */
+#s_lg_sel_subjects_chzn  > a {
+background-image: none;
+background-color: #8b2348;
+color: #fff;
+font-weight: bold;
+border: 1px solid #646569;
+}
+#s_lg_sel_subjects_chzn > div.chzn-drop {background-color: #ebebeb;}
+#s_lg_sel_subjects_chzn > div > ul.chzn-results > li.highlighted {background: #9d3452 !important;}
+
+/* TEMP HIDES - BUG IN SYSTEM */
+#s_lg_sel_az_types_chzn {display: none;} /*TEMPORARY HIDE 
+#s_lg_sel_az_types_chzn > a {background-image: none;background-color: #EBEBEB;}
+#s_lg_sel_az_types_chzn  > div.chzn-drop {background-color: #ebebeb;}
+#s_lg_sel_az_types_chzn > div > ul.chzn-results > li.highlighted {background: #9d3452 !important;} */
+
+#s_lg_sel_az_vendors_chzn {display: none;} /*TEMPORARY HIDE 
+#s_lg_sel_az_vendors_chzn > a {background-image: none;background-color: #EBEBEB;}
+#s_lg_sel_az_vendors_chzn > div.chzn-drop {background-color: #ebebeb;}
+#s_lg_sel_az_vendors_chzn > div > ul.chzn-results > li.highlighted {background: #9d3452 !important;} */
+
+/* Reset Button */
+a#s-lg-az-reset:hover  {background-color: #9d3452; color: white;}
+/* Search Bar */
+#s-lg-az-search-bar {display: none;}
+/* Alpha Sort Buttons */
+#s-lg-az-index > a.bold {background-color: #9d3452; color: white;}
+#s-lg-az-index {overflow-wrap: break-word;}
+/* Search Box Text */
+#s-lg-az-search {text-overflow: ellipsis;}
+a.s-lg-az-result-moreinfo-link {display: none;}
+.s-lg-db-panel-title {
+background-color: #e7e7e7;
+border-bottom: none;
+border-radius: 5px;
+padding: 3px 3px 3px 10px;
+font-size: 16px;
+}
+
+/* Alpha Sort Buttons */
+#s-lg-az-index a, #s-lg-az-index span {
+margin: 0px 5px 0px 0px;
+padding: 3px;
+text-decoration: none;
+border: 1px solid #d3d3d3;
+border-radius: 3px;
+}
+
+#s-lg-az-index a:hover {background-color: #8b2348 !important;color: white;}
+#s-lg-az-index a:active {background-color: #8b2348 !important;color: white;}
+#s-lg-az-index > .s-lg-text-ghost {display: none;}
+#s-lg-az-index {margin: 10px 0px 5px 0px;}
+/* Adjust Badge Color */
+#s-lg-az-count.badge {background-color: green;}
+/* Results Display */
+.s-lg-az-result {padding-left: 11px;}
+.s-lg-az-result-title > a {font-size: 14px;}
+/* Remove Alphabetical Index Labels */
+.s-lg-db-panel-title {display: none;}
+div[id *= "s-lg-az-name-"] {margin-bottom: 0px;}
+/* Suggested Guides Adjustments */
+#s-lg-az-guides-div > div > div.txt.pad-top-sm > ul > div > span.s-lg-guide-info-updated {display: none !important;}
+#s-lg-az-guides-div > div > div.txt.pad-top-sm > ul > div > span.s-lg-guide-info-views {display: none !important;}
+#s-lg-az-guides-div > div > div.txt.pad-top-sm > ul > li a {font-size: 13px; font-weight: bold;}
+
+
+/* ADMIN ELEMENTS
+======================================== */
+#s-lib-bc-list {margin-left: 15px !important;}
+a#s-lg-admin-edit-content-text {color: #222;}
+header.s-lib-cmd-bar ~ #s-lg-guide-header {margin-top: 15px;}
+#s-lg-guide-tabs-title-bar {border-top: transparent;}
+/* selector inside {{ADMIN_MINI_CMD_BAR}} */
+div#s-lg-guide-mini-cmd-bar {float: right; margin-top: 10px;}
+/* Fix for missing {{ADMIN_MINI_CMD_BAR}} */
+div#cmd_bar_fix {float: right; width: 100%; margin-bottom: 15px;}
+
+
+/* HANGING INDENT FOR MLA & APA GUIDES
+======================================== */
+h6 {
+text-indent: -25px;
+padding-left: 25px;
+font-weight: normal;
+font-size:small;
+font-family:"Arial", Arial, sans-serif;
+line-height: 2em;
+}
+
+
+/* SUBJECT PAGE
+======================================== */
+#s-lg-sb-content-guides > div  > div   div   div.s-lg-gmeta {display: none;}
+#sel_guide_drop_chzn > a {background-image: none; background-color: #8b2348; color: #fff; font-weight: bold; border: 1px solid #646569;}
+/* Drop Down */
+#sel_guide_drop_chzn > div > ul > li.highlighted  {background: transparent; background-color: #8b2348 !important;  color: #fff;}
+/* Tabs */
+#s-lg-sb-cols > #col1 > ul > li.active > a {background-color: #8b2348; color: #fff;}
+
+
+
+/* NAVIGATION MENU
+================================================== */
+#cscc_custom_nav_container {margin-left: -15px; margin-right: -15px;}
+#cscc_custom_nav_container > nav {
+border-color: transparent; 
+border: 0px; 
+min-height: 0px; 
+box-shadow: 0px 8px 6px -6px #aaa; 
+border-radius: 0px; 
+background-color: transparent;
+}
+#cscc_custom_nav_container > nav > div > div > button.navbar-toggle {
+background-color: #ebebeb; 
+margin-right: 30px;}
+
+#cscc_custom_navbar {
+font-size: 14px; 
+padding-left: 0px; 
+padding-right: 0px; 
+font-family: 'SourceSansProBold', Helvetica, Arial, sans-serif; 
+background-color: #ebebeb;
+}
+
+#cscc_custom_navbar > .navbar-nav > li > a {color: #3e3935; padding-right: 13px;}
+#cscc_custom_navbar > .navbar-nav > li > a:hover {color: #fff;}
+#cscc_custom_navbar > .navbar-nav > li:hover {background-color: #8b2348; color: white;}
+#cscc_custom_navbar > .navbar-nav > li.dropdown > a:hover {cursor: default;}
+
+/* Submenu Styles */
+#cscc_custom_navbar > .navbar-nav > li > .dropdown-menu {
+margin-top: -1px; 
+margin-left: -2px;
+min-width: 200px;
+background-color: #fff;
+} 
+#cscc_custom_navbar >  .navbar-nav > .open > a {background-color: #8b2348; color: #fff} 
+#cscc_custom_navbar .nav .dropdown-toggle:hover .caret {border-top-color: transparent;} 
+#cscc_custom_navbar .nav .dropdown-toggle:focus .white-caret {border-top-color: transparent;}
+#cscc_custom_navbar > .navbar-nav > li.dropdown > ul > li > a:hover {background-color: #8b2348; color: white;} #cscc_custom_navbar  > .navbar-nav > .open  > a > span {color: #8b2348;}
+
+#custom_header {
+padding-top: 15px; 
+margin-left: -15px; 
+margin-right: -15px; 
+background-color: #003E52;
+}
+
+img#librarylogo {margin-bottom: 15px;}
+
+#librarylogo {
+width: 150px; 
+height: 32px; 
+display: block; 
+margin: auto; 
+padding-left: 15px;
+}
+#s-lib-bc {display: none;}
+#s-lg-guide-header-info {display: none;}
+div#cscc_custom_navbar {border-color: transparent;}
+.navbar-collapse > ul {margin-left: 10px;}
+
+/* For mobile */
+@media (max-width: 767px) { 
+#cscc_custom_navbar .navbar-nav .open .dropdown-menu>li>a {margin-left: 10px; color: #3e3935;}
+}
+
+@media all and (min-width: 768px){
+#librarylogo {width: 200px; height: 43px; margin: 0px 0px 0px 1px;}  
+#s-lib-bc {display: block;}  
+#s-lg-guide-header-info {display: block;}
+}
+
+@media all and (min-width: 992px){
+#librarylogo {
+width: 300px;
+height: 64px;
+margin: 0px 0px 0px 1px;}
+}
+
+
+/* FOOTER
+======================================== */
+div#s-lib-footer-public {margin-left: 0px; margin-right: 0px; width:100%; background-color: white;}
+#s-lg-guide-header-attributes li {padding: 0 20px 0 0;}
+#social_media_wrapper_footer {background-color: white; margin-left: -15px; margin-right: -15px; text-align:center;}
+#social_media_wrapper_footer > a > i.fa {color: #007db6; padding: 5px 10px; margin: 0px auto;}
+#social_media_wrapper_footer > a:hover > i.fa {color: #9d3452;}
+
+
+</style>
