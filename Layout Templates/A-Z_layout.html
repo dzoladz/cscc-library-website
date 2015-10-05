@@ -1,0 +1,174 @@
+<body class="s-lib-public-body">
+<!-- NOTE: DISPLAY OVERRIDES MAY BE LOCATED IN CUSTOM JS/CSS SECTION OF ADMIN, Derek Zoladz (2014) -->
+
+        <!-- BEGIN: Page Header -->
+            {{public_header}}
+        <!-- END: Page Header -->
+
+        <!-- BEGIN: Content Header -->
+<!-- REMOVE CONTENT HEADER
+        <div id="s-lib-public-header" class="s-lib-header container s-lib-side-borders">
+            <div id="s-lib-bc">
+                {{breadcrumbs}}
+            </div>
+            <h1 id="s-lib-public-header-title">{{page_title}}
+</h1>
+            <div id="s-lib-public-header-desc">{{page_description}}
+</div>
+        </div>
+-->
+        <!-- END: Content Header -->
+
+        <!-- BEGIN: Nav Bar -->
+        <div id="s-lib-public-nav" class="container s-lib-side-borders">
+            {{page_nav}}
+        </div>
+        <!-- END: Nav Bar -->
+
+        <!-- BEGIN: content -->
+        <div id="s-lib-public-main" class="s-lib-main container s-lib-side-borders">
+            <section>
+				<div  id="s-lg-az-search-bar"  class="row">
+					<div  id="az-search-col-1"  class="col-md-12 center">
+						{{navbar}}
+					</div>
+				</div>
+	   </section>
+
+			<section>
+				<div  id="s-lg-az-cols"  class="row">
+					<div  id="col1"  class="col-md-8 center">
+						<div id="s-lg-az-filters" class="pad-right-sm pad-bottom-med">
+							<section>
+								<div  id="s-lg-az-filter-cols"  class="row">
+									<div  id="col-subjects"  class="col-md-4 center">
+										{{subject_list}}
+									</div>
+									<div  id="col-types"  class="col-md-4 center">
+										{{type_list}}
+									</div>
+                                                                     <!-- HIDE VENDORS FILTER
+									<div  id="col-vendors"  class="col-md-4 center">
+										{{vendor_list}}
+									</div>
+                                                                       -->
+								</div>
+			                                  </section>
+                                                 </div>
+						<div id="s-lg-az-index" class="pad-right-sm">
+							{{alpha_list}}
+						</div>
+						<div id="s-lg-az-search-reset" class="pad-top-med pad-bottom-med">
+							{{search_reset}}
+						</div>
+						<div id="s-lg-az-content" class="pad-right-sm pad-top-med">
+							<div class="bold s-lib-color-lt-grey pad-top-med text-center">Loading...</div>
+						</div>
+					</div>
+					<div  id="col2"  class="col-md-4 center">
+						
+<!-- TOGGLE TRIALS BOX W/ COMMENT  -->
+{{trials_box}}
+
+
+
+						{{content_box_guides}}
+                                               
+                                               <!-- ADD TOP DATABASE LIST -->
+                                                <div class="margin-bottom-xlg">
+                                                     <div class="s-lib-public-side-header">
+                                                        <div class="pad-bottom-sm"><i class="fa fa-heart fa-lg"></i>&nbsp;Popular Databases</div>
+                                                     </div>
+                                                     <div class="txt pad-top-sm">
+                                                        <ul>
+                                                           <li><a href="http://cscc.ohionet.org/login?url=http://search.ebscohost.com/login.aspx?profile=ehost&defaultdb=a9h">Academic Search Complete</a></li>
+                                                           <li><a href="http://cscc.ohionet.org/login?url=http://search.ebscohost.com/login.asp?profile=web&defaultdb=bth">Business Source Complete</a></li>
+                                                           <li><a href="http://cscc.ohionet.org/login?url=http://library.cqpress.com/cqresearcher">CQ Researcher</a></li>
+                                                           <li><a href="http://cscc.ohionet.org/login?url=http://online.infobaselearning.com/Direct.aspx?aid=10816&pid=WE57">Issues & Controversies</a></li>
+                                                           <li><a href="http://cscc.ohionet.org/login?url=http://www.lexisnexis.com/hottopics/lnacademic">LexisNexis Academic</a></li>
+                                                           <li><a href="http://cscc.ohionet.org/login?url=http://journals.ohiolink.edu/">Electronic Journal Center</a></li>
+                                                        </ul>
+                                                     </div>
+                                                </div><!-- close list -->
+
+                                               <!-- ADD REMOTE ACCESS INSTRUCTIONS -->
+                                               <div class="margin-bottom-xlg">
+                                                    <div class="s-lib-public-side-header">
+                                                        <div class="pad-bottom-sm"><i class="fa fa-exclamation-circle fa-lg"></i>&nbsp;Off-Campus Access </div>
+                                                    </div>
+                                                    <div class="txt pad-top-sm">
+                                                      <p> Login to library databases from off-campus using your last name and Cougar ID number. If you don't know your Cougar ID number, use <a href="http://cougarweb.cscc.edu/">CougarWeb for Students</a> and check "My Profile".</p>
+
+<p>For further assistance with login issues, please contact the Circulation Desk at <span itemprop="telephone"><a href="tel:+16142872465">614-287-2465</a></span>.</p>
+
+                                                    </div>
+                                               </div><!-- close list -->
+                                               
+                                               <!-- ADD RESEARCH HELP-->
+                                               <div class="margin-bottom-xlg">
+                                                    <div class="s-lib-public-side-header">
+                                                        <div class="pad-bottom-sm"><i class="fa fa-lightbulb-o fa-lg" ></i>&nbsp;Research Help</div>
+                                                    </div>
+                                                    <div class="txt pad-top-sm">
+                                          <p>For assistance on database selection or usage, please call the Reference Desk <a href="tel:+16142872460">614-287-2460</a> (Columbus) or  <a href="tel:+7402038183">740-203-8183</a> (Delaware).</p>
+                                                    </div>
+                                               </div><!-- close list -->
+
+                                               <!-- ADD eJournal Look-Up -->
+                                              <div class="margin-bottom-xlg">
+                                                  <div class="s-lib-public-side-header">
+                                                     <div class="pad-bottom-sm"><i class="fa fa-search fa-lg"></i>&nbsp;eJournal Search</div>
+                                                  </div>
+                                                  <div class="txt pad-top-sm">
+                                                      <p>Search for an electronic journal in our databases.</p>
+                                                      <ul><li><a href="http://cscc.ohionet.org/login?url=http://atoz.ebsco.com/Titles/64493F7B?SetResourceTypeId=BooksOnly#65/1/1/journalsOnly">Start a Search</a></li></ul>
+                                                  </div>
+                                               </div><!-- close list -->
+
+					</div>
+				</div>
+			</section>
+        </div>
+        <!-- END: content -->
+        <!-- BEGIN: Page Footer -->
+        <div id="s-lib-footer-public" class="s-lib-footer footer container  s-lib-side-borders">
+    <div>
+        <div id="s-lib-footer-brand">
+            Powered by <a href="http://www.springshare.com">Springshare</a>.
+        </div>
+        <div id="s-lib-footer-rights">
+            All rights reserved.
+        </div>
+        <div id="s-lib-footer-login-link">
+            <a href="{{login_url}}
+">Login to LibApps</a>.
+        </div>
+   	</div>
+    <div>
+        <div id="s-lib-footer-print-link">
+            View this page in a format suitable for <a href="#">printers and screen-readers</a>.
+        </div>
+        <div id="s-lib-footer-support-link">
+                    </div>
+  	</div>
+</div>        <!-- END: Page Footer -->
+        <div id="s-lib-alert" title="">
+                            <div id="s-lib-alert-content"></div>
+                       </div>        
+                <div id="s-lib-popover-title" class="hide">
+                    <span class="text-info"><strong>title</strong></span> 
+                    <button type="button" id="popclose" class="close" onclick="jQuery('.s-lib-popover').popover('hide')">&times;</button> 
+                </div>
+                <div id="s-lib-popover-content" class="hide"><i class="fa fa-refresh fa-spin"></i> Loading...
+                    <button class="btn btn-default btn-sm popclose" type="button">Close</button>
+                </div>        
+			<div id="s-lib-scroll-top" title="Back to Top">
+				<span class="fa-stack fa-lg">
+				  <i class="fa fa-square-o fa-stack-2x"></i>
+				  <i class="fa fa-angle-double-up fa-stack-1x" style="position:relative; bottom:2px;"></i>
+				</span>
+			</div>        
+        <!-- BEGIN: Custom Footer -->
+        {{public_footer}}
+        <!-- END: Custom Footer -->
+	</body>
