@@ -1,0 +1,188 @@
+<style type="text/css">h2.s-lib-box-title {display: none;}
+div#s-lg-box-2842541 {border: none; box-shadow: none;}
+div#custom_header + #s-lg-guide-header {display: none;}
+</style>
+<script>
+                    springSpace.publicObj = new springSpace.public.Public({
+                        constant: {
+                            PROCESSING: {
+                                
+                            },
+                            CONTENT: {
+                            }
+                        }
+                    });
+                </script><script src="sa.php?site_id=53"></script><script>
+                    springSpace.Common = springSpace.Common || { };
+                        
+                    springSpace.Common.constant = {
+                            PROCESSING: {
+                                ACTION_DISPLAY_POLL: 159
+                            }
+                    };
+                    
+                    springSpace.publicObj.loadGuideCounts=function(config) {
+                        xhr = jQuery.ajax({
+                            url: "index_process.php?action=" + config.action + "&site_id=" + config.site_id + "&group_id=" + config.group_id + "&key=" + key,
+                            type: "GET",
+                            dataType: "json",
+                            success: function(response, textStatus, jqXHR) {
+                                if ( response.errCode == 200 ) {
+                                    var count_type = "";
+										switch (config.action) {
+											case 176:
+												count_type = "guidetype";
+												break;
+											case 177:
+												count_type = "group";
+												break;
+											case 178:
+												count_type = "owner";
+												break;
+										}
+										
+                                    jQuery.each(response.data, function(idx, elt) {
+											jQuery("#s-lg-index-" + count_type + "-" + elt.id).show();
+											jQuery("#s-lg-index-" + count_type + "-count-" + elt.id).html(elt.count);
+                                    });
+                                } else {
+                                    // Show error message.
+                                    
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                // error
+                                alert("Oops, sorry! Something unexpected happened: " + errorThrown + " \n\nThat might not mean much to you, but it probably does to the Springy Techs...you can let them know at support@springshare.com.");
+                            }
+                        });
+                    }
+                                            
+                    springSpace.homepage = springSpace.homepage || {
+                        default_list_order: 0,
+                        current_list: 172,
+                        current_btn_id: "s-lg-index-subject-btn",
+                        current_num_cols: 1,
+                        current_type_label: ""
+                    };
+                    
+                    jQuery(function() {
+						// Clear out the search term from previous search/back button.
+						jQuery("#s-lg-guide-search").val("");
+						
+						// Load guide list.
+						springSpace.publicObj.loadHomepageList({
+                            action: 172,
+                            group_id: "0",
+                            order: springSpace.homepage.default_list_order,
+                            num_cols: 1,
+                            elt_id: "s-lg-index-list",
+                            button_id: "s-lg-index-subject-btn",
+                            type_label: "Subjects",
+							display_sort: true
+                        });
+
+                        // Select default dropdown option.
+                        jQuery("#s-lg-guide-order > option[value=" + springSpace.homepage.default_list_order + "]").prop("selected",true);
+                        
+                        // Load guide type counts.
+                        springSpace.publicObj.loadGuideCounts({
+                            action: 176,
+                            site_id: 53,
+                            group_id: 0
+                        });
+                        
+                        // Load group guides counts.
+                        springSpace.publicObj.loadGuideCounts({
+                            action: 177,
+                            site_id: 53
+                        });
+						
+						   // Load owner group counts.
+                        springSpace.publicObj.loadGuideCounts({
+                            action: 178,
+                            site_id: 53,
+							   group_id: 0
+                        }	);
+						
+                    });springTrack.init({
+_st_site_id: '53'});
+                        jQuery(function() {springTrack.trackPage({
+_st_type_id: '11'});
+                        });
+                </script>
+<div class="clearfix">
+<div id="s-lg-hp-nav">
+<ul>
+	<li>
+	<ul class="nav nav-pills">
+		<li class="s-lg-index-nav-btn active" id="s-lg-index-all-btn"><a href="javascript: void(0);" onclick="springSpace.publicObj.loadHomepageList({
+									action: 170,
+									group_id: 0,
+									order: jQuery('#s-lg-guide-order').val(),
+									num_cols: 2,
+									elt_id: 's-lg-index-list',
+									button_id: 's-lg-index-all-btn',
+									display_sort: true
+								});">ALL GUIDES</a></li>
+		<li class="s-lg-index-nav-btn" id="s-lg-index-subject-btn"><a href="javascript: void(0);" onclick="springSpace.publicObj.loadHomepageList({
+                                action: 172,
+								group_id: 0,
+								num_cols: 1,
+								type_label: 'Subjects',
+                                elt_id: 's-lg-index-list',
+                                button_id: 's-lg-index-subject-btn',
+                      		});">BY SUBJECT</a></li>
+		<li class="s-lg-index-nav-btn" id="s-lg-index-guidetype-btn"><a href="javascript: void(0);" onclick="springSpace.publicObj.loadHomepageList({
+								action: 173,
+								group_id: 0,
+								num_cols: 0,
+								type_label: 'Guide Types',
+								elt_id: 's-lg-index-list',
+								button_id: 's-lg-index-guidetype-btn',
+							});">BY TYPE</a></li>
+		<li class="s-lg-index-nav-btn" id="s-lg-index-owner-btn"><a href="javascript: void(0);" onclick="springSpace.publicObj.loadHomepageList({
+								action: 174,
+								group_id: 0,
+								num_cols: 0,
+								type_label: 'Guide Owners',
+								elt_id: 's-lg-index-list',
+								button_id: 's-lg-index-owner-btn',
+							});">BY OWNER</a></li>
+	</ul>
+	</li>
+	<li id="s-lg-hp-nav-bottom">
+	<div class="clearfix">
+	<form action="srch.php" class="form-inline pull-right" role="search"><span> Search: </span>
+	<div class="form-group">
+	<div class="s-lg-public-search-field"><label class="control-label sr-only" for="s-lg-guide-search">Guide Search Terms</label> <input class="form-control" id="s-lg-guide-search" name="q" placeholder="Enter Search Words" type="text" /></div>
+	</div>
+	<button class="btn btn-default" type="submit">Go</button></form>
+	</div>
+	</li>
+</ul>
+</div>
+
+<div id="s-lg-guide-list-controls">
+<div class="pull-left">
+<h4 class="muted">Showing <span id="s-lg-index-count"></span> <span id="s-lg-index-label"></span></h4>
+</div>
+
+<div class="pull-right form-horizontal muted">
+<div class="form-group margin-bottom-none" id="form-group-s-lg-guide-order"><label class="control-label col-md-3" for="s-lg-guide-order">Display:</label>
+
+<div class="col-md-9"><select class="form-control" id="s-lg-guide-order" name="s-lg-guide-order" onchange="springSpace.publicObj.loadHomepageList({
+								action: 170,
+								group_id: 0,
+								order: jQuery('#s-lg-guide-order').val(),
+								num_cols: 2,
+								elt_id: 's-lg-index-list',
+								button_id: 's-lg-index-all-btn',
+								display_sort: true,
+								type_label: springSpace.homepage.current_type_label
+							})"><option value="0">Alphabetically</option><option value="3">By Popularity</option><option value="2">Most Recent</option> </select></div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="s-lg-index-list">Loading...</div>
