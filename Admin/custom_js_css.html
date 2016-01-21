@@ -1,7 +1,7 @@
 <!--
 * LGv2 Customizer v1.0
-* Derek C. Zoladz (2015)
 * Derek C. Zoladz, Eric T. Davis (2014)
+* Derek C. Zoladz (2015)
 -->
 
 <!-- Table of Contents
@@ -39,8 +39,7 @@ CSS
 
 <!-- Language Customization -->
 <script>
-// SET BREE MILLER EMAIL BUTTON
-// CUSTOM LOGIN TEXT
+/* SET BREE MILLER EMAIL BUTTON, CUSTOM LOGIN TEXT */
 $( document ).ready(function() {
     $("#s-lib-profile-email-16862 > a").text("Send Mail");
     $("#s-lib-footer-login-link > a").text("Staff Login");
@@ -49,8 +48,7 @@ $( document ).ready(function() {
 
 <!-- Bug Fixes -->
 <script type="text/javascript">
-// Corrections for issues with default window behavior
-// BOOKS FROM THE CATALOG, PDF Files
+/* Corrections for issues with default window behavior, BOOKS FROM THE CATALOG, PDF Files */
     $(document).ready(function(){        
         $(".s-lg-book-props > a").removeAttr("target");   
         $("div[id^='s-lg-book-cover-'] > a").removeAttr("target");   
@@ -59,7 +57,7 @@ $( document ).ready(function() {
 </script>
 
 <script type="text/javascript">
-//RSS Feeds
+/* RSS Feeds */
     $(document).ready(function(){        
         setTimeout(function() {
          $(".s-lg-rss-list-item > .s-lg-title > a").removeAttr("target"); 
@@ -127,7 +125,7 @@ p.dana_click {font-size:12px; }
 .table-no-border>thead>tr>td, 
 .table-no-border>tbody>tr>td, 
 .table-no-border>tfoot>tr>td {border: none;}
-/*BULLETED LISTS */
+/* BULLETED LISTS */
 .bullet-left-align {margin-left:-18px;}
 ul.left-align li {margin-left:-18px;}
 /* IMAGE SHADOW */
@@ -190,8 +188,6 @@ ul.left-align li {margin-left:-18px;}
   position: absolute;
   bottom: 0;
   width: 100%;
-  /*background-color: #003e52;*/
-  /*Eric's new background color 1 2015*/
   background-color: #005cb8;
   opacity: 0.8;
   color: #fff;
@@ -344,7 +340,7 @@ background-color: #ebebeb;
 #cscc_custom_navbar > .navbar-nav > li > a {color: #3e3935; padding-right: 13px;}
 #cscc_custom_navbar > .navbar-nav > li > a:hover {color: #fff;}
 #cscc_custom_navbar > .navbar-nav > li:hover {background-color: #8b2348; color: white;}
-#cscc_custom_navbar > .navbar-nav > li.dropdown > a:hover {cursor: default;}
+#cscc_custom_navbar > .navbar-nav > li.dropdown > a:hover {cursor: pointer;}
 
 /* Submenu Styles */
 #cscc_custom_navbar > .navbar-nav > li > .dropdown-menu {
