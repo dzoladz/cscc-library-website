@@ -1,5 +1,5 @@
 <body class="s-lib-public-body">
-<!-- NOTE: DISPLAY OVERRIDES MAY BE LOCATED IN CUSTOM JS/CSS SECTION OF ADMIN, Derek Zoladz (2014) -->
+<!-- NOTE: DISPLAY OVERRIDES MAY BE LOCATED IN CUSTOM JS/CSS SECTION OF ADMIN, Derek Zoladz (2016) -->
 
         <!-- BEGIN: Page Header -->
             {{public_header}}
@@ -67,12 +67,10 @@
 					</div>
 					<div  id="col2"  class="col-md-4 center">
 						
-<!-- TOGGLE TRIALS BOX W/ COMMENT  -->
-{{trials_box}}
+<!-- TOGGLE TRIALS W/ mustache,  trials_box --> {{trials_box}} 
 
 
-
-						{{content_box_guides}}
+<!-- Used for recommendation engine -->	{{content_box_guides}}
                                                
                                                <!-- ADD TOP DATABASE LIST -->
                                                 <div class="margin-bottom-xlg">
@@ -114,14 +112,14 @@
                                                     </div>
                                                </div><!-- close list -->
 
-                                               <!-- ADD eJournal Look-Up -->
+                                               <!-- ADD eResources Look-Up -->
                                               <div class="margin-bottom-xlg">
                                                   <div class="s-lib-public-side-header">
-                                                     <div class="pad-bottom-sm"><i class="fa fa-search fa-lg"></i>&nbsp;eJournal Search</div>
+                                                     <div class="pad-bottom-sm"><i class="fa fa-search fa-lg"></i>&nbsp;eResources Search</div>
                                                   </div>
                                                   <div class="txt pad-top-sm">
-                                                      <p>Search for an electronic journal in our databases.</p>
-                                                      <ul><li><a href="http://cscc.ohionet.org/login?url=http://atoz.ebsco.com/Titles/64493F7B?SetResourceTypeId=BooksOnly#65/1/1/journalsOnly">Start a Search</a></li></ul>
+                                                      <p>Search for electronic resources in our collection.</p>
+                                                      <ul><li><a href="http://cscc.ohionet.org/login?url=http://search.ebscohost.com/login.aspx?authtype=cookie,ip,uid&profile=eds">Start a Search</a></li></ul>
                                                   </div>
                                                </div><!-- close list -->
 
