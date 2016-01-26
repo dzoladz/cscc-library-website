@@ -12,6 +12,7 @@ Resources & Scripts
   # Remove Homepage Tabs
   # Language Customizations
   # Bug Fixes
+  # Remove [Admin] from document.title
 
 CSS
   # LINKS
@@ -64,6 +65,16 @@ $( document ).ready(function() {
     }, 1000);   
     });
 </script>
+
+<!-- Remove [Admin] from document.title -->
+<script>
+$(document).ready(function() {
+    $('title:contains("[Admin]")').each(function(){
+        $(this).html($(this).html().split("[Admin]").join(""));
+    });
+});
+</script>
+
 
 
 <!-- STYLES -->
@@ -143,12 +154,11 @@ ul.left-align li {margin-left:-18px;}
 /* LIBRARY HOME PAGE
 ======================================== */
 /* Note:  
-  (1) Home Page Contains a Hidden Box to Hide Box Titles  
-  (2) Script Hides Tabs on /home URLs */
+  (1) A Script Hides The Tabs on /home URLs */
 
 
 /* ROTATING IMAGE GALLERY */
-/* Note: Behavioral Controls in the Content Box */
+/* Note: The Image Gallery Behavioral Controls in the Content Box */
 /* Author: Viljami Salminen, https://github.com/viljamis/ResponsiveSlides.js */
 /* Mods: Derek C. Zoladz, 2014 */
 
